@@ -11,7 +11,7 @@ export default defineConfig(({ command, mode }) => {
           build: {
             lib: {
               entry,
-              name: "hellox",
+              name: "webcodec_player",
               fileName: (format) => `index.js`, // 输出文件名
               formats: ["umd"],
             },

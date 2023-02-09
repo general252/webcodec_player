@@ -1,22 +1,25 @@
+/// <reference types="dom-webcodecs" />
 export declare namespace WebCodecPlayer {
     interface Config {
         /**
-                * 播放器容器
-                * *  若为 string ，则底层调用的是 document.getElementById('id')
-                * */
-        container: HTMLElement | string;
+        * 播放器容器
+        * *  若为 string ，则底层调用的是 document.getElementById('id')
+        * */
+        container: Element | string;
     }
 }
 export declare class WebCodecPlayer {
     private decoder;
-    constructor(config: WebCodecPlayer.Config);
+    private isSupportedH265;
+    constructor(options: WebCodecPlayer.Config);
     show(): void;
     destroy(): void;
     initDecoder(): void;
-    _handleDecode(videoFrame: any): void;
-    _handleError(error: any): void;
+    send(packet: any): void;
+    private handleDecode;
+    private handleError;
+    isSupportedHevc(): Promise<VideoDecoderSupport>;
 }
-export default WebCodecPlayer;
 declare global {
     export const GWebCodecPlayer: {
         new (config: WebCodecPlayer.Config): WebCodecPlayer;

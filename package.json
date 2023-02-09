@@ -1,6 +1,6 @@
 {
   "name": "webcodec_player",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,16 +11,18 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@types/node": "^18.13.0",
-    "vite": "^4.1.1",
-    "vite-plugin-dts": "^1.7.2"
-  },
   "files": [
     "dist"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/general252/webcodec_player.git"
+  },
+  "devDependencies": {
+    "@types/dom-mediacapture-transform": "^0.1.4",
+    "@types/dom-webcodecs": "^0.1.5",
+    "@types/node": "^18.13.0",
+    "vite": "^4.1.1",
+    "vite-plugin-dts": "^1.7.2"
   }
 }
