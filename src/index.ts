@@ -51,7 +51,7 @@ export class WebCodecPlayer {
         }
 
         // 附加canvas
-        {
+        if (false) {
             this.cnvCanvas = document.createElement('canvas');
             this.cnvCanvas.width = mContainer.clientWidth;
             this.cnvCanvas.height = mContainer.clientHeight;
@@ -194,6 +194,7 @@ export class WebCodecPlayer {
 
 declare global {
     export const GWebCodecPlayer: {
+        prototype: WebCodecPlayer;
         new(config: WebCodecPlayer.Config): WebCodecPlayer
     }
 }
