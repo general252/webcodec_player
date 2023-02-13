@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>simple</title>
+</head>
+
+<body>
+    <div id="myVideo" style="background-color:beige;width: 640px; height: 480px"></div>
+</body>
+
+</html>
+
+<script src="decode.js"></script>
+
+<script>
+    // 支持
+    isSupportedDecodeHevc().then(function (r) {
+        console.log(r);
+
+        if (r.supported) {
+            var h = new BVWebcodec({
+                container: "myVideo"
+            });
+
+            setTimeout(() => {
+                let packetCount = 0;
+                getPacketWorker("ws://127.0.0.1:5000/wsH265", function (data) {
+                    packetCount++;
+                    h.decodeVideo(data, 0, packetCount === 1 ? true : false);
+                })
+            }, 1000);
+        }
+    });
+</script>
+
+
+<script>
+    // getPacketWorker 获取packet数据
+    function getPacketWorker(wsURL, cb) {
+        //let wsURL = "ws://" + window.location.host + "/wsH265";
+        // let wsURL = "ws://127.0.0.1:5000/wsH265";
+
+        // Blob => ArrayBuffer
+        let reader = new FileReader();
+        reader.onload = function (e) {
+            cb(reader.result)
+        }
+
+        // websocket接收packet数据
+        {
+            console.log(wsURL)
+            let ws = new WebSocket(wsURL);
+
+            ws.onopen = function () {
+                console.log("open");
+                ws.send("hello"); //将消息发送到服务端
+            }
+            ws.onmessage = function (e) {
+                reader.readAsArrayBuffer(e.data);
+            }
+            ws.onclose = function (e) {
+                console.log("close");
+            }
+            ws.onerror = function (e) {
+                console.log("on error", e);
+            }
+        }
+    }
+</script>
